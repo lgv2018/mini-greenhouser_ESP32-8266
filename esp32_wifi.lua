@@ -16,10 +16,10 @@ local m = {}
 
 -- provide a list of Wifi networks
 m.wifiAuth = {}
-m.wifiAuth[0] = {ssid = "Tell My WiFi Love Her", password = "45c13nc3!"}
-m.wifiAuth[1] = {ssid = "BDV_OR", password = "bdvavcx613"}
-m.wifiAuth[2] = {ssid = "cameras", password = "45c13nce!"}
-m.wifiAuth[3] = {ssid = "Bill Wi The Science Fi", password = "45c13nc3!"}
+m.wifiAuth[0] = {ssid = "ssid1", password = "pass1"}
+m.wifiAuth[1] = {ssid = "ssid2", password = "pass2"}
+m.wifiAuth[2] = {ssid = "ssid3", password = "pass3"}
+m.wifiAuth[3] = {ssid = "ssid4", password = "pass4"}
 
 -- private properties
 m.isInitted = false

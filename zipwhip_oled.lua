@@ -49,13 +49,15 @@ local function showText(body1, body2, body3)
   disp:clearBuffer()
   disp:setDrawColor(1) --/* color 1 for the box */
   -- disp:setFont(u8g2.font_6x10_tf)
-  disp:setFont(u8g2.font_6x10_tf)
+  disp:setFont(u8g2_font_t0_16b_tf)
   if body1 ~= nil then disp:drawStr(0, 12, body1) end
   if body2 ~= nil then disp:drawStr(0, 24, body2) end
   if body3 ~= nil then disp:drawStr(0, 36, body3) end
   disp:sendBuffer()
 end
 Zd.showText = showText
+
+
 
 return Zd
 

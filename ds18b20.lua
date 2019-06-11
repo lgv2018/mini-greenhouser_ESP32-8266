@@ -3,7 +3,7 @@ dsPin = 19
 
 local Ds = {}
 
-function Ds.initSensors()
+function initSensors()
   ow.setup(dsPin)
   count = 0
   repeat
@@ -13,7 +13,7 @@ function Ds.initSensors()
   until (addr ~= nil) or (count > 100)
 end
 
-function Ds.readSensors()
+function readSensors()
   if addr == nil then
     print("No more addresses.")
   else

@@ -79,8 +79,50 @@ function readDs18Sensors()
   end
 end
 
+soilMchannel = 7 -- ADC channel 7 on GPIO35
+
+--local lm3 = {}
+
+function initSmSensor()
+  adc.setup(adc.ADC1, soilMchannel, adc.ATTEN_11db)
+end
+--lm3.init = init
+
+function soilMoisture()
+  adcReading = adc.read(adc.ADC1, soilMchannel)
+  moisturePer = ((adcReading * 100) / 4096)
+  roundingDigits = 2
+  shiftPer = 10 ^ roundingDigits
+  soilMoistPercent = math.floor( moisturePer*shiftPer + 0.5) / shiftPer
+end
+--lm3.soilMoisture = soilMoisture
+
+--return lm3
+
+function sensorsUpdate()
+  -- DHT Sensor
+  print("Checking air")
+  dhts = require('dht_sensor')
+  dhtpin=4
+  getDhtData()
+  --temp = dhts.getTemp()
+  --humi = dhts.getHumi()
+  print("DHT Temperature: "..temp.." | ".."Humidity: "..humi)
+  -- ds18b20 sensor
+  print("Checking soil")
+  ds = require("ds18b20")
+  dsPin = 5
+  initDs18Sensors()
+  dsReading = readDs18Sensors()
+  sm = require("lm393_soil")
+  --sm.initSmSensor()
+  soilMoisture()
+  print("Soil temp: "..t1.."°C | ".."moisture: "..soilMoistPercent.."%")
+  zd.showText("IP: "..wf.myIp, "Air:",temp.."°C | "..humi.."%", "Soil:",t1.."°C".." | "..soilMoistPercent.."%")
+end
+
 -- WS2812 Control
-neoPixel = require("ws281x_leds")
+-- neoPixel = require("ws281x_leds")
 --neoPixel.chase(255, 0, 0)
 
 -- I2C SSD1306
@@ -91,10 +133,11 @@ zd.showText("Initializing...")
 -- Wifi init
 wf = require("esp32_wifi")
 wf.init()
-wf.on("connection", function(info)
-  print("Got wifi. IP:", info.ip, "Netmask:", info.netmask, "GW:", info.gw)
-  zd.showText("IP address:" , info.ip)
-end)
+--wf.on("connection", function(info)
+--  print("Got wifi. IP:", info.ip, "Netmask:", info.netmask, "GW:", info.gw)
+--  zd.showText("IP address:" , info.ip)
+--end)
+wf.setupWifi()
 
 -- DHT Sensor
 print("Checking air")
@@ -104,13 +147,18 @@ dhtpin=4
 getDhtData()
 --temp = dhts.getTemp()
 --humi = dhts.getHumi()
-print("DHT Temperature: "..temp.." ; ".."Humidity: "..humi)
+print("DHT Temperature: "..temp.." | ".."Humidity: "..humi)
 
 -- ds18b20 sensor
 print("Checking soil")
 ds = require("ds18b20")
 dsPin = 5
-ds.initSensors()
+initDs18Sensors()
 dsReading = readDs18Sensors()
 
-print("Soil temp: "..t1.."C°")
+sm = require("lm393_soil")
+--sm.initSmSensor()
+soilMoisture()
+
+print("Soil temp: "..t1.."°C | ".."moisture: "..soilMoistPercent.."%")
+zd.showText("IP: "..wf.myIp, "Air:",temp.."°C | "..humi.."%", "Soil:",t1.."°C".." | "..soilMoistPercent.."%")

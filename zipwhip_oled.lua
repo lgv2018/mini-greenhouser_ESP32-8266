@@ -45,14 +45,19 @@ local function showContact(name, phone)
 end
 Zd.showContact = showContact
 
-local function showText(body1, body2, body3)
+local function showText(body1, body2, body3, body4, body5, body6)
   disp:clearBuffer()
   disp:setDrawColor(1) --/* color 1 for the box */
   -- disp:setFont(u8g2.font_6x10_tf)
-  disp:setFont(u8g2_font_t0_16b_tf)
+  --disp:setFont(u8g2.font_7x14_tf)
+  disp:setFont(u8g2.font_9x18_tf)
+  --font_profont29,profont17_tf,robot_de_niro_tf
   if body1 ~= nil then disp:drawStr(0, 12, body1) end
   if body2 ~= nil then disp:drawStr(0, 24, body2) end
   if body3 ~= nil then disp:drawStr(0, 36, body3) end
+  if body4 ~= nil then disp:drawStr(0, 48, body4) end
+  if body5 ~= nil then disp:drawStr(0, 60, body5) end
+  if body6 ~= nil then disp:drawStr(0, 72, body6) end
   disp:sendBuffer()
 end
 Zd.showText = showText

@@ -7,7 +7,7 @@ local temp
 local temp_dec
 local humi_dec
 
-function Dt.read()
+function getData()
     status, temp, humi, temp_dec, humi_dec = dht.read2x(dhtpin)
     if status == dht.OK then
         print( "DHT Sensor reading good.")
@@ -28,28 +28,28 @@ function Dt.read()
         print( "DHT timed out." )
     end
 end
-Dt.read = read
+Dt.getData = getData
 
-function Dt.getHumi()
-    Dt.read(dhtpin)
+function getHumi()
+    getData(dhtpin)
     return humi
 end
 Dt.getHumi = getHumi
 
-function Dt.getTemp()
-    Dt.read(dhtpin)
+function getTemp()
+    getData(dhtpin)
     return temp
 end
 Dt.getTemp = getTemp
 
-function Dt.getHumi_dec()
-    Dt.read(dhtpin)
+function getHumi_dec()
+    getData(dhtpin)
     return humi_dec
 end
 Dt.getHumi_dec = getHumi_dec
 
-function Dt.getTemp_dec()
-    Dt.read(dhtpin)
+function getTemp_dec()
+    getData(dhtpin)
     return humi_dec
 end
 Dt.getTemp_dec = getTemp_dec

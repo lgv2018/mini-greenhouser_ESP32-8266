@@ -22,15 +22,15 @@ local _ws2812
 -- ****************************************************************************
 -- Implement esp8266 compatability API
 --
-function M.init(mode)
-  if _pin_strip2 == nil and mode == M.MODE_DUAL then
+function init(mode)
+  if _pin_strip2 == nil and mode == MODE_DUAL then
     error("gpio for data2 undefined")
   end
 
-  _mode = mode or M.MODE_SINGLE
+  _mode = mode or MODE_SINGLE
 end
 
-function M.write(data1, data2)
+function write(data1, data2)
   if _mode == nil then
     error("call init() first")
   end
@@ -52,15 +52,15 @@ return function (pin_strip1, pin_strip2)
   ws2812 = nil
 
   -- forward unchanged functions
-  M.newBuffer = _ws2812.newBuffer
+  newBuffer = _ws2812.newBuffer
 
   -- forward constant definitions
-  M.FADE_IN        = _ws2812.FADE_IN
-  M.FADE_OUT       = _ws2812.FADE_OUT
-  M.MODE_SINGLE    = 0   -- encoding from ws2812.c
-  M.MODE_DUAL      = 1   -- encoding from ws2812.c
-  M.SHIFT_LOGICAL  = _ws2812.SHIFT_LOGICAL
-  M.SHIFT_CIRCULAR = _ws2812.SHIFT_CIRCULAR
+  FADE_IN        = _ws2812.FADE_IN
+  FADE_OUT       = _ws2812.FADE_OUT
+  MODE_SINGLE    = 0   -- encoding from ws2812.c
+  MODE_DUAL      = 1   -- encoding from ws2812.c
+  SHIFT_LOGICAL  = _ws2812.SHIFT_LOGICAL
+  SHIFT_CIRCULAR = _ws2812.SHIFT_CIRCULAR
 
   _pin_strip1 = pin_strip1 or error("pin_strip1 not defined")
   _pin_strip2 = pin_strip2
